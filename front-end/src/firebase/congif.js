@@ -14,7 +14,7 @@ const firebaseConfig = {
 
 
 // init firebase server
-firebase.initialize(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
 
 // init service
 const projectFirestore = firebase.firestore();

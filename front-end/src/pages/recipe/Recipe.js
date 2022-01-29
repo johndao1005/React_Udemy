@@ -1,12 +1,27 @@
 import './Recipe.css'
 import {useParams} from 'react-router-dom';
-import {useFetch} from '../../hooks/useFetch'
-import React from 'react'
+import React, {useState,useEffect} from 'react'
+import { projectFirestore } from '../../firebase/congif';
 
 export default function Recipe() {
+   
+    const [isPending, setIsPending] = useState(false)
+    const [error, setError] = useState(null)
     const {id} = useParams();
-    const url = "https://localhost:3000/recipes/" + id
-    const {error, isPending, data: recipe} = useFetch(url);
+    const [recipe, setRecipe] = useState(null)
+    
+    useEffect(()=>{
+        setIsPending(true);
+        projectFirestore.collection('recipes').doc(id).get().then(doc =>{
+        if(doc.exists){
+            setIsPending(false)
+            setRecipe(doc.data());
+        }else{
+            setIsPending(false);
+            setError('Could not find recipe');
+        }})
+    },[id])
+
     return (
         <div className="recipe">
             {error && <h1>{error.message}</h1>}
