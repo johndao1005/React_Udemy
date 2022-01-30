@@ -13,23 +13,23 @@ export default function Home() {
 
     useEffect(()=>{
         setIsPending(true);
-        projectFirestore.collection('recipes').get().then((snapshot)=>{
+        const unsub = projectFirestore.collection('recipes').onSnapshot((snapshot)=>{//onSnapshot will update the data when any changes happen 
             if(snapshot.empty) {
                 setError('No recipes found');
-                
+                setIsPending(false);
             } else{
                 let result = [];
                 snapshot.docs.forEach(recipe => {
                     result.push({id:recipe.id , ...recipe.data()})
-                })
+                }) 
                 setData(result);
-                
+                setIsPending(false);
             }
-        }).catch(e=>{
-            setError(e.message)
-        }).finally(() => {
+        },(e)=>{ // happen when there is error with the function and print the error
+            setError(e.message);
             setIsPending(false);
         })
+        return () => unsub();
     },[])
     return (
         <div className="home">
