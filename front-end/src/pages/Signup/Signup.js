@@ -11,6 +11,7 @@ function Signup() {
     const handleSubmit= (e) => {
         e.preventDefault();
         signup(email, password, displayName)
+        
     }
     return (
         <form  onSubmit={handleSubmit} className={styles['signup-form']}>

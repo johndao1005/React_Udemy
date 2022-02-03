@@ -3,12 +3,15 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Home from './pages/Home/Home';
 import Signup from './pages/Signup/Signup';
 import Login from './pages/Login/Login';
+import { useAuthContext } from './hooks/useAuthContext';
 import Navbar from './components/Navbar';
 
 
 function App() {
+  const {authIsReady} = useAuthContext();
   return (
     <div  >
+      {authIsReady &&( // set this to enable the app to render when auth receive value of user or user is null
       <BrowserRouter>
       <Navbar/>
       <main>
@@ -19,6 +22,7 @@ function App() {
         </Routes>
       </main>
       </BrowserRouter>
+      )}
       </div>
   );
 }
