@@ -14,7 +14,6 @@ export const useSignup = () => {
   
     try {
       // signup
-      // creating user 
       const res = await projectAuth.createUserWithEmailAndPassword(email, password)
 
       if (!res) {
@@ -22,11 +21,8 @@ export const useSignup = () => {
       }
 
       // upload user thumbnail
-      //create the upload path
       const uploadPath = `thumbnails/${res.user.uid}/${thumbnail.name}`
-      // upload the image to the firebase storage
       const img = await projectStorage.ref(uploadPath).put(thumbnail)
-      //create URL so can load the image from the data base
       const imgUrl = await img.ref.getDownloadURL()
 
       // add display AND PHOTO_URL name to user

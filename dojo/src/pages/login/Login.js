@@ -7,7 +7,7 @@ function Login() {
   const [password, setPassword] = useState(""); 
   
   return <form className="auth-form" onSubmit={()=>{}}>
-    <h2>Sign up</h2>
+    <h2>Login</h2>
     <label>
       <span>email:</span>
       <input 
