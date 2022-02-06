@@ -31,7 +31,6 @@ function Dashboard() {
             case "sales":
             case "development":
             case "marketing":
-                console.log(document.category,filter)
                 return document.category.value === filter;
             default:
                 return true;
