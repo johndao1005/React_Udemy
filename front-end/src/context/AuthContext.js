@@ -1,5 +1,5 @@
 import {useEffect ,createContext, useReducer} from 'react';
-import {projectAuth} from '../firebase/congif'
+import {projectAuth} from '../firebase/congif';
 export const AuthContext = createContext();
 
 export const authReducer =(state,action)=>{

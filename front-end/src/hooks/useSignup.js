@@ -13,19 +13,13 @@ export const useSignup = ()=>{
         setError(null);// needed to reset the error after each time pressing the buttons
         setIsPending(true);
         try {
-
             const res = await projectAuth.createUserWithEmailAndPassword(email, password)
-            
-
             if (!res){
                 throw new Error("Could not complete the sign up");
             }
-
             // add user name to user
-            await res.user.updateProfile({displayName} )
-
+            await res.user.updateProfile({displayName})
             dispatch({type:"LOGIN",payload:res.user})
-
             if(!isCancelled) {
                 setIsPending(false);
                 setError(null);

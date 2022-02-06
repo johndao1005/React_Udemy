@@ -8,6 +8,7 @@ import Navbar from './components/Navbar';
 
 
 function App() {
+  // check if any user already login.
   const { authIsReady, user } = useAuthContext();
   return (
     <div  >
@@ -17,12 +18,8 @@ function App() {
           <main>
             <Routes>
               <Route path="/" element={user ? <Home /> : <Navigate to="/login" />} />
-
               <Route path="/signup"  element={!user ? <Signup /> : <Navigate to="/" />}/>
-
               <Route path="/login"  element={!user ? <Login /> : <Navigate to="/" />}/>
-
-
             </Routes>
           </main>
         </BrowserRouter>
