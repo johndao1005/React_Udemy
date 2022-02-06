@@ -72,6 +72,7 @@ export default function Create() {
         const project = {
             name,
             details,
+            category,
             assignedUsersList, 
             createdBy,
             dueDate: timestamp.fromDate(new Date(dueDate)),
