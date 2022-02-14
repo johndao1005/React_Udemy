@@ -1,19 +1,26 @@
 import React, { useState } from 'react';
 
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+
 
 function Signup() {
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false)
   const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const handleSubmit = (e)=>{
+  const handleSubmit = async(e)=>{
     e.preventDefault();
-    //TODO add signup function
+
+    const auth = getAuth();
+    const user = await createUserWithEmailAndPassword(auth, email,password)
   }
   return (
     <>
     <form className="details-form" onSubmit={handleSubmit}>
     <h2>Signup</h2>
+    <p></p>
     <label>
         <span>Username</span>
         <input type="text"

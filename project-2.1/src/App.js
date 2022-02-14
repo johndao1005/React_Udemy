@@ -11,7 +11,6 @@ function App() {
     <BrowserRouter>
       <NavBar />
       <main>
-        
         <Routes>
           <Route exact path="/" element={<Dashboard />} />
           <Route exact path="/signup" element={<Signup />} />
