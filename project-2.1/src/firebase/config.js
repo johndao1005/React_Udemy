@@ -4,7 +4,7 @@ import { initializeApp } from "firebase/app";
 
 import { getAnalytics } from "firebase/analytics";
 
-import {getFirestore, collection, getDocs} from "firebase/compat/firestore"
+import { collection, getDocs} from "firebase/compat/firestore"
 
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
@@ -42,5 +42,3 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 const analytics = getAnalytics(app);
-
-const db = getFirestore(app);
