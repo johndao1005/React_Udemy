@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { useSignup } from '../../hooks/userHooks';
 
 
 function Signup() {
@@ -9,27 +8,11 @@ function Signup() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false)
-  const handleSubmit = async(e)=>{
-    e.preventDefault();
-    setError(null);
-    setLoading(true);
-    
-    const auth = getAuth();
-    try{
-    // create user api  
-    const res = await createUserWithEmailAndPassword(auth, email,password)
-    
-    // update the user details to change their userName
-    await res.user.updateProfile({displayName:userName})
+  const { signup, error, loading } = useSignup()
 
-    ///TODO login in the user
-    console.log(res.user)
-  } catch(e){
-    ///set the error to display
-    setError(e)
-  }
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    signup(email,userName, password,confirmPassword)
   }
 
   

@@ -2,12 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import './firebase/config'
-
+import {AuthContextProvider} from './context/authContext'
 
 ReactDOM.render(
+  <AuthContextProvider>
   <React.StrictMode>
     <App />
-  </React.StrictMode>,
+  </React.StrictMode>
+  </AuthContextProvider>,
   document.getElementById('root')
 );

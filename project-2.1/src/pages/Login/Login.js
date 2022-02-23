@@ -1,31 +1,17 @@
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import React, { useState } from 'react';
+import { useLogin } from '../../hooks/userHooks';
 
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false)
-  const handleSubmit = async(e)=>{
-    e.preventDefault();
-    setError(null);
-    setLoading(true);
-    
-    const auth = getAuth();
-    try{
-    // create user api  
-    const res = await signInWithEmailAndPassword(auth, email,password)
-    
+  const { login, error, loading } = useLogin()
 
-    ///TODO login in the user
-    console.log(res.user)
-  } catch(e){
-    ///set the error to display
-    setError(e)
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    login(email, password)
   }
-  }
+
   return (
     <>
     <form className="details-form" onSubmit={handleSubmit}>
