@@ -4,7 +4,7 @@ import {
     signOut
 } from 'firebase/auth'
 import { AuthContext } from '../context/authContext'
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import { auth } from '../firebase/config'
 
 
@@ -40,6 +40,7 @@ export const useSignup = () => {
 }
 
 export const useLogin = () => {
+    const [isCancelled, setIsCancelled] = useState(false)
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(false)
     const { dispatch } = useAuthContext()
@@ -54,6 +55,10 @@ export const useLogin = () => {
             // dispatch login action
             dispatch({ type: 'LOGIN', payload: res.user })
             console.log(res.user.email)
+            if (!isCancelled) {
+                setLoading(false)
+                setError(null)
+            }
         }
         catch (err) {
             setError(err.message)
@@ -61,6 +66,10 @@ export const useLogin = () => {
             setLoading(false)
         }
     }
+    useEffect(() => {
+        return () => setIsCancelled(true)
+      }, [])
+    
     return { loading, error, login }
 }
 
@@ -69,7 +78,7 @@ export const useLogout = () => {
     const [loading, setLoading] = useState(false)
     const { dispatch } = useAuthContext()
 
-    const logout = async (email, password) => {
+    const logout = async () => {
         try {
             setError(null)
             setLoading(true)
@@ -77,7 +86,7 @@ export const useLogout = () => {
             // create user
             const res = await signOut(auth)
             // dispatch login action
-            dispatch({ type: 'LOGIN', payload: res.user })
+            dispatch({ type: 'LOGOUT' })
             console.log("log out")
         }
         catch (err) {

@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useLogin } from '../../hooks/userHooks';
 
 
-function Login() {
+export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { login, error, loading } = useLogin()
@@ -14,7 +14,7 @@ function Login() {
 
   return (
     <>
-    <form className="details-form" onSubmit={handleSubmit}>
+    <div className="details-form" >
     <h2>Login</h2>
     {loading && <p>is loading</p>}
     {error && <p>{error}</p>}
@@ -32,10 +32,9 @@ function Login() {
         placeholder="Enter your password "
         value={password}/>
       </label>
-      <button type="submit">Login</button>
-    </form>
+      <button className="btn" onClick={handleSubmit}>Login</button>
+    </div>
     </>
   )
 }
 
-export default Login

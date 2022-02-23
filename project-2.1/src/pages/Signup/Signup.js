@@ -19,7 +19,7 @@ function Signup() {
 
   return (
     <>
-    <form className="details-form" onSubmit={handleSubmit}>
+    <div className="details-form">
     <h2>Signup</h2>
     {loading && <p>is loading</p>}
     {error && <p>{error}</p>}
@@ -51,8 +51,8 @@ function Signup() {
         value={confirmPassword}
         placeholder="Enter your confirm password"/>
       </label>
-      <button type="submit">Signup</button>
-    </form>
+      <button className="btn" onClick={handleSubmit}>Sign up</button>
+    </div>
     </>
   )
 }
