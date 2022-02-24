@@ -13,6 +13,7 @@ export const AuthContextProvider = ({ children }) => {
         user: null,
         observerStart: false
     })
+    
     useEffect(() => {
         const unsub = onAuthStateChanged(auth, user => {
             dispatch({ type: "OBSERVER_START", payload: user })

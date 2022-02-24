@@ -12,6 +12,7 @@ export const useAuthContext = () => {
     const context = useContext(AuthContext)
     return context
 }
+
 export const useSignup = () => {
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(false)
@@ -28,7 +29,8 @@ export const useSignup = () => {
             const res = await createUserWithEmailAndPassword(auth, email, password)
             // dispatch login action
             dispatch({ type: 'LOGIN', payload: res.user })
-            console.log(res.user.email)
+            
+            //TODO add a function to add displayName into user data
         }
         catch (err) {
             setError(err.message)

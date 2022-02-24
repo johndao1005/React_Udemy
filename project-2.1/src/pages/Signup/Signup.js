@@ -1,21 +1,21 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useSignup } from '../../hooks/userHooks';
 
 
 function Signup() {
+  // setting data field
   const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
+  // getting error, loading state and signup function from use signup hooks
   const { signup, error, loading } = useSignup()
 
   const handleSubmit = (e) => {
     e.preventDefault()
     signup(email,userName, password,confirmPassword)
   }
-
-  
 
   return (
     <>
