@@ -30,13 +30,14 @@ export const useSignup = () => {
             // dispatch login action
             dispatch({ type: 'LOGIN', payload: res.user })
             
+            //bug will trigger unmount components error setLoading(false) 
             //TODO add a function to add displayName into user data
+            
         }
         catch (err) {
-            setError(err.message)
-        } finally {
             setLoading(false)
-        }
+            setError(err.message)
+        } 
     }
     return { loading, error, signup }
 }
@@ -61,17 +62,17 @@ export const useLogin = () => {
                 setLoading(false)
                 setError(null)
             }
+            setLoading(false)
         }
         catch (err) {
             setError(err.message)
-        } finally {
             setLoading(false)
-        }
+        } 
     }
     useEffect(() => {
         return () => setIsCancelled(true)
-      }, [])
-    
+    }, [])
+
     return { loading, error, login }
 }
 
@@ -86,7 +87,7 @@ export const useLogout = () => {
             setLoading(true)
 
             // create user
-            const res = await signOut(auth)
+            await signOut(auth)
             // dispatch login action
             dispatch({ type: 'LOGOUT' })
             console.log("log out")

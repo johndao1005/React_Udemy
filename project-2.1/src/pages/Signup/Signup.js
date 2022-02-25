@@ -12,13 +12,14 @@ function Signup() {
   // getting error, loading state and signup function from use signup hooks
   const { signup, error, loading } = useSignup()
 
+  // submit button
   const handleSubmit = (e) => {
     e.preventDefault()
     signup(email,userName, password,confirmPassword)
+    
   }
 
   return (
-    <>
     <div className="details-form">
     <h2>Signup</h2>
     {loading && <p>is loading</p>}
@@ -53,7 +54,6 @@ function Signup() {
       </label>
       <button className="btn" onClick={handleSubmit}>Sign up</button>
     </div>
-    </>
   )
 }
 

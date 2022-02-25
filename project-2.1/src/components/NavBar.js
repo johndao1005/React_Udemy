@@ -24,7 +24,6 @@ function NavBar() {
         <li>
           <button onClick={handleLogout}>Log out</button>
         </li>
-      
         </>
         :
         <>

@@ -1,29 +1,23 @@
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
-import { deleteDoc, doc ,serverTimestamp,updateDoc} from 'firebase/firestore';
-import React, { useEffect, useState } from 'react'
+import { deleteDoc, doc ,updateDoc} from 'firebase/firestore';
+import React, {  useState } from 'react'
 import { Link } from 'react-router-dom'
 import { db } from '../firebase/config';
 import { useAuthContext } from '../hooks/userHooks';
 import './TransactionDetails.css'
 
 function TransactionDetails({transaction}) {
+  // setting input field data
   const [editedName, setEditedName] = useState('');
   const [editedPrice, setEditedPrice] = useState('')
+  // change between view and edit card for transactions
   const [edit, setEdit] = useState(false)
   const {user} =useAuthContext()
-  const handleSubmit = () => {
-    //TODO add edit transaction api
-  }
-  useEffect(() => {
-    console.log(edit)
-    return () => {
-
-    };
-  }, [edit])
 
   const handleDelete =  (e) => {
     e.preventDefault();
+    //confirm message box
     confirmAlert({
       title: 'Delete confirm',
       message: 'Are you sure to do this?',
@@ -41,6 +35,9 @@ function TransactionDetails({transaction}) {
   }
 
   const handleUpdate = (e)=>{
+    if(editedName==="" || editedPrice===""){
+
+    }
     e.preventDefault();
     confirmAlert({
       title: 'Update confirm',
@@ -49,12 +46,12 @@ function TransactionDetails({transaction}) {
         {
           label: 'Yes',
           onClick: async() => {await updateDoc(doc(db, user.uid, transaction.id),{
-            transactionName: editedName,
-            price: editedPrice,
+            transactionName: editedName===""?transaction.transactionName:editedName,
+            price: editedPrice===""?transaction.price:editedPrice,
           })
+          // change card stage to view
           setEdit(false);
-        }
-        },
+        }},
         {
           label: 'No',
           onClick: () => {}
@@ -72,7 +69,7 @@ function TransactionDetails({transaction}) {
         </Link>
         <p className="amount">${transaction.price}</p>
       </div>) :
-        (<form className="transaction-form" onSubmit={handleSubmit}>
+        (<div className="transaction-form" >
           <label>
             <span>Transaction</span>
             <input
@@ -91,8 +88,7 @@ function TransactionDetails({transaction}) {
               placeholder={transaction.price}
             />
           </label>
-          <button className="button" type="submit">Save</button>
-        </form>)
+        </div>)
       }
 
       <div >

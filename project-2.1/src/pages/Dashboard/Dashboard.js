@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import './Dashboard.css'
-import { Link } from 'react-router-dom'
 import TransactionForm from '../../components/TransactionForm'
 import TransactionDetails from '../../components/TransactionDetails'
 import { useAuthContext } from '../../hooks/userHooks'
 import { onSnapshot, collection, query, orderBy } from 'firebase/firestore'
 import {db} from "../../firebase/config"
+
 function Dashboard() {
   const {user} = useAuthContext();
   const [transactions, setTransactions] = useState([]);
@@ -26,7 +26,7 @@ function Dashboard() {
   return (
     <div className="container">
       <div className="content">
-      {transactions.map((transaction)=><TransactionDetails key={transaction.id} transaction={transaction}/>)}
+      {transactions && transactions.map((transaction)=><TransactionDetails key={transaction.id} transaction={transaction}/>)}
       </div>
       <div className="sidebar">
         <TransactionForm />
